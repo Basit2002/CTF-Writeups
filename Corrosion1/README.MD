@@ -5,7 +5,7 @@ Gain initial access and escalate privileges on a Linux target by exploiting Loca
 
 ---
 
-## 🔍 Discovery
+## Discovery
 
 **Goal:** Identify the target and exposed services.
 
@@ -23,7 +23,7 @@ nmap -sV -Pn <target-ip>
 
 ---
 
-## 🕵️ Enumeration
+## Enumeration
 
 **Goal:** Uncover hidden directories and files
 
@@ -49,7 +49,7 @@ gobuster dir -u http://<target-ip>/blog-post/ -w /usr/share/wordlists/dirbuster/
 
 ---
 
-## ⚙️ Foothold (LFI Discovery)
+## Foothold (LFI Discovery)
 
 **Observation:**  
 The file `randylogs.php` hinted at a Local File Inclusion vulnerability.
@@ -64,7 +64,7 @@ wfuzz -u http://<target-ip>/blog-post/archives/randylogs.php?FUZZ=/var/log/auth.
 
 ---
 
-## 🔓 Gaining Access (Log Poisoning via LFI)
+## Gaining Access (Log Poisoning via LFI)
 
 Exploited LFI to read `/var/log/auth.log`.
 
@@ -91,11 +91,11 @@ set LPORT <PORT>
 run
 ```
 
-🎉 Reverse shell gained as `www-data`.
+Reverse shell gained as `www-data`.
 
 ---
 
-## 🚀 Shell Upgrade
+## Shell Upgrade
 
 **Upgraded to Meterpreter:**
 
@@ -108,7 +108,7 @@ Now had a stable and interactive session.
 
 ---
 
-## 🔐 Privilege Escalation
+## Privilege Escalation
 
 **Used Metasploit Local Exploit Suggester:**
 
@@ -131,7 +131,7 @@ run
 
 ---
 
-## 🛡️ Remediation Steps
+## Remediation Steps
 
 1. **Review Web Server Configurations**
    - Disable directory listing
@@ -153,3 +153,5 @@ run
 
 Successfully exploited LFI and escalated to root using a known kernel vulnerability.
 
+**Full walkthrough with screenshots:**  
+👉 [View the Medium post here](https://medium.com/@basitolasubomibalogun/corrosion1-ctf-vulnhub-technical-walkthrough-2a8f47179f4c)
