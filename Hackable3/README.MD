@@ -11,7 +11,7 @@ nmap -A <ip>
 - 80 (HTTP – Apache)  
 - 22 (SSH – filtered)  
 
-💡 SSH appeared filtered, suggesting firewall restrictions or a port-knocking requirement.  
+ SSH appeared filtered, suggesting firewall restrictions or a port-knocking requirement.  
 
 ##  Enumeration  
 - Ran `gobuster` on HTTP service:  
